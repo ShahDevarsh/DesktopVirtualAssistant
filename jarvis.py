@@ -139,7 +139,7 @@ if __name__ == "__main__":
                 os.startfile(os.path.join(music_dir, item))
         
         elif 'time' in query:
-
+            """koi sense hai is baat ki, hame badi lag rahi thi """
             currTime = datetime.datetime.now().strftime("%H:%M:%S")
             print(currTime)
             speak(f"Current Time is {currTime}")
