@@ -14,14 +14,14 @@ import speech_recognition as sr
 from googleapiclient.discovery import build
 
 #dictionary of mails 
-emails = {"vishal":"vishalgautamcsl@gmail.com","devarsh":"shahdevarsh2019@gmail.com","rishabh":"rishabhkumar405@gmail.com","suryansh":"rathoresuryansh196@gmail.com"}
+emails = {"name":"maid-id"}
 
 #To open stuffs in chrome
-chrome_path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+chrome_path = "YourChromeBrowserPath"
 wb.register('chrome', None,wb.BackgroundBrowser(chrome_path))
-api_key = 'AIzaSyA8jJ1dW_EKq_y4qTMsFX_gfZpxEwkuVNw' #youtube api key
+api_key = 'YourYoutubeApiKey' #youtube api key
 
-#for voice you can choose either male or female as you wish
+#for voice you can choose either male(0 as id) or female(1 as id) as you wish
 engine = pyttsx3.init('sapi5') 
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[0].id)
@@ -34,8 +34,11 @@ def speak(audio):
     engine.runAndWait()
 
 def wishme():
-
+    
+    """ This function is always called at the beginning of the program to welcome the master"""
+    
     hour = int(datetime.datetime.now().hour)
+    
     if hour >=0 and hour <12:
         speak("Good Morning Sir\n")
     elif hour>=12 and hour<=18:
@@ -68,34 +71,29 @@ def takeCommand():
 def sendEmail(to,content):
 
     """To send mail implemented using smtp library"""
-    server = smtplib.SMTP('smtp.gmail.com', 587)  #stmp library to send mails
+    server = smtplib.SMTP('smtp.gmail.com', 587)  
     server.ehlo()
     server.starttls()
     textfile = open("file.txt")
     password = textfile.read()
     textfile.close()
-    server.login('u17co049@coed.svnit.ac.in', password)
-    server.sendmail('u17co049@coed.svnit.ac.in',to,content)
+    server.login('youremailid@something.com', password)
+    server.sendmail('youremailid@something.com',to,content)
     server.close()
-
-def goto(linenum):
-    global line
-    line = linenum
-
  
 if __name__ == "__main__":
     
     wishme()
     
-    while True:       #continue until user don't say quit
+    while True:       #to make continue all tasks until user don't say quit
 
         query = takeCommand().lower()
 
-        if 'wikipedia' in query:
+        if 'wikipedia' in query:    #say the item you want to explore and then wikipedia like "shahrukh khan wikipedia" 
 
             speak('Searching Wikipedia...')
             query = query.replace("wikipedia", "")
-            results = wikipedia.summary(query, sentences = 2)
+            results = wikipedia.summary(query, sentences = 2) #explore by yourself to see what it does
             speak("According to Wikipedia")
             print(results)
             speak(results)
@@ -134,7 +132,7 @@ if __name__ == "__main__":
 
         elif 'play music' in query:
 
-            music_dir = 'C:\\Users\\Devarsh\\Music\\Favourites'
+            music_dir = 'YourMusicDirectoryPath'
             songs = os.listdir(music_dir)
             speak('Playing from your favourite songs')
             for item in songs:
