@@ -144,8 +144,6 @@ if __name__ == "__main__":
             print(currTime)
             speak(f"Current Time is {currTime}")
 
-
-        
         elif 'email' in query:
 
             try:
